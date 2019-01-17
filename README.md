@@ -1,3 +1,13 @@
+**项目已闭源**
+
+安装:
+```sh
+git clone https://github.com/kewth/pychat.git
+cd pychat
+chmod +x pychat
+sudo mv pychat /usr/bin/pychat
+```
+
 # pychat
 
 Use python3 to chat online
