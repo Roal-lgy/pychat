@@ -20,7 +20,13 @@ class Monitor(threading.Thread): # {{{1
             if self.last == 0:
                 self.last = times
             elif times > self.last:
-                _messagebox.info(str(times-self.last) + ' new messages!')
+                mess = '{:d} new messages:\n'.format(times-self.last)
+                quantity = min(times-self.last, 10)
+                ptr = self.todo.get('point')
+                talk = self.todo.get('contents')
+                for i in range(quantity):
+                    mess += '{:s}\n'.format(talk[ptr-i][5])
+                _messagebox.info(mess)
                 self.last = times
             endtime = time.time() + 60
             while not self.stoped and time.time() < endtime:
