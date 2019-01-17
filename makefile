@@ -4,8 +4,10 @@ all: $(pips) /usr/bin/pychat /usr/bin/update-pychat ~/.config/pychat/lock pychat
 	@echo -e '\033[32minstalled\033[0m!!'
 
 pychat: main.py _*py
+	mv _root.py __root.py
 	pyinstaller -F main.py
 	cp dist/main ./pychat
+	mv __root.py _root.py
 
 /usr/bin/update-pychat:
 	touch update-pychat
@@ -17,14 +19,14 @@ pychat: main.py _*py
 	sudo mv update-pychat /usr/bin/update-pychat
 
 /usr/bin/pychat:
-	touch pychat
-	echo '#!/bin/bash' > pychat
-	echo -n 'dir=' >> pychat
-	pwd >> pychat
-	echo 'python3 $$dir/main.py $$@' >> pychat
+	touch _pychat
+	echo '#!/bin/bash' > _pychat
+	echo -n 'dir=' >> _pychat
+	pwd >> _pychat
+	echo 'python3 $$dir/main.py $$@' >> _pychat
 	# cp main.py pychat
-	chmod +x pychat
-	sudo mv pychat /usr/bin/pychat
+	chmod +x _pychat
+	sudo mv _pychat /usr/bin/pychat
 
 ~/.config/pychat/lock:
 	mkdir -p ~/.config/pychat
@@ -48,5 +50,6 @@ pip/yaml.lock:
 	touch pip/yaml.lock
 
 clean:
-	rm pychat
+	rm _pychat
 	rm update-pychat
+	mv __root.py _root.py
