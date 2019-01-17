@@ -105,6 +105,25 @@ def command(comms): # {{{1
         prinfo = 'No such a command!'
     return res, prinfo
 
+def lcs(str1, str2): # {{{1
+    'return the lenth of lcs of [str1] and [str2]'
+    len1, len2 = len(str1), len(str2)
+    if len1 == 0 or len2 == 0:
+        return 0
+    dpf = []
+    for i in range(len1+1):
+        lis = []
+        for j in range(len2+1):
+            lis.append(0)
+        dpf.append(lis)
+    for i in range(1, len1+1):
+        for j in range(1, len2+1):
+            if str1[i-1] == str2[j-1]:
+                dpf[i][j] = dpf[i-1][j-1] + 1
+            else:
+                dpf[i][j] = max(dpf[i][j-1], dpf[i-1][j])
+    return dpf[len1][len2]
+
 def main(): # {{{1
     'Main function'
     user = _user.User()
@@ -128,6 +147,7 @@ def main(): # {{{1
     except ModuleNotFoundError:
         pass
     nickname = ''
+    lastcon = ''
     while comres != 'quit':
         lasttime = time.time()
         if comres == 'printall':
@@ -184,8 +204,13 @@ def main(): # {{{1
                 _messagebox.warning('You cannot use root command!')
             fetch = True
         else:
-            room.send(con, nickname=nickname)
-            fetch = False
+            lenth = lcs(con, lastcon)
+            if lenth >= (len(con) + len(lastcon)) * 0.4:
+                print('Your input is almost the same as the last time')
+            else:
+                room.send(con, nickname=nickname)
+                fetch = False
+            lastcon = con
         if time.time() < lasttime + 1.5:
             print('Wait a moment, you type so fast!')
             time.sleep(lasttime + 1.5 - time.time())
