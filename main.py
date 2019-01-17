@@ -192,7 +192,8 @@ def main(): # {{{1
 
 def toexit(res): # {{{1
     'to exit the execute and return [res]'
-    exit(res)
+    import sys
+    sys.exit(res)
 
 if __name__ == '__main__': # {{{1
     try:

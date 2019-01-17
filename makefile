@@ -1,7 +1,11 @@
 pips=pip/argparse.lock pip/colorama.lock pip/leancloud.lock pip/yaml.lock
 
-all: $(pips) /usr/bin/pychat /usr/bin/update-pychat ~/.config/pychat/lock
+all: $(pips) /usr/bin/pychat /usr/bin/update-pychat ~/.config/pychat/lock pychat
 	@echo -e '\033[32minstalled\033[0m!!'
+
+pychat: main.py _*py
+	pyinstaller -F main.py
+	cp dist/main ./pychat
 
 /usr/bin/update-pychat:
 	touch update-pychat
@@ -12,7 +16,7 @@ all: $(pips) /usr/bin/pychat /usr/bin/update-pychat ~/.config/pychat/lock
 	chmod +x update-pychat
 	sudo mv update-pychat /usr/bin/update-pychat
 
-/usr/bin/pychat: main.py _*py
+/usr/bin/pychat:
 	touch pychat
 	echo '#!/bin/bash' > pychat
 	echo -n 'dir=' >> pychat

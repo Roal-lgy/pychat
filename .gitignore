@@ -3,3 +3,7 @@ pip
 __pycache__
 _root.py
 *.pyc
+build
+dist
+pychat
+main.spec
