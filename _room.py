@@ -59,7 +59,7 @@ class ChatRoom: # {{{1
         for i in talk:
             i[5] = _print.dealstr(i[5])
         while len(talk) < size:
-            talk.append([0, 0, 0, 0, 'root', 'null'])
+            talk.append([0, 0, 0, 0, 'root', 'null', 'null'])
         if ptr == size:
             ptr = 0
         talk[ptr] = make_content(username, content)
@@ -140,4 +140,4 @@ def make_content(username, content): # {{{1
     'make [content] a message'
     return [int(time.strftime('%m')), int(time.strftime('%d')), \
             int(time.strftime('%H')), int(time.strftime('%M')), \
-            username, content]
+            username, content, 'null']

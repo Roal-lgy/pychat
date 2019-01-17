@@ -19,7 +19,7 @@ class Printer:
 
     def printamess(self, content):
         'print one message on the screen'
-        if len(content) == self.time_size + 2:
+        if len(content) == self.time_size + 3:
             ptime = False
             for i in range(self.time_size):
                 content[i] = int(content[i])
