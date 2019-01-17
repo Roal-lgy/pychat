@@ -25,7 +25,7 @@ class Monitor(threading.Thread): # {{{1
                 ptr = self.todo.get('point')
                 talk = self.todo.get('contents')
                 for i in range(quantity):
-                    mess += '{:s}\n'.format(talk[ptr-i][5])
+                    mess += '{:s}\n'.format(talk[ptr-quantity+i+1][5])
                 _messagebox.info(mess)
                 self.last = times
             endtime = time.time() + 60
